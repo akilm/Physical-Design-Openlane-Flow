@@ -35,3 +35,21 @@ with the advent of an open standard ISA like RISC-V, there are many people who h
 <img src="http://opencircuitdesign.com/qflow/giffiles/raven_anno2.png" 
 alt="alt text" width = 516 height = 452 >
 <p/>
+
+# Digital ASIC Design Flow - Components
+
+## RTL IPs
+Register-transfer level IPs refer to description of an Digital IP (Intellectual property) using Hardware Description Languages like Verilog, System Verilog and VHDL. This is one of the three requirements for an ASIC design flow. There are hundreds of RTL opensource designs available all over the internet. Some of the popular websites for opensource RTL IPs include [Opencores](https://opencores.org/), [LibreCores](https://www.librecores.org/) and [Github](https://github.com/). 
+
+## EDA Tools
+Electronic design automation (EDA), also referred to as electronic computer-aided design (ECAD), is a category of software tools for designing electronic systems such as integrated circuits and printed circuit boards. The final GDS files are generated from the RTL IPs using these tools. Various Academic projects have been made opensource, some of the popular ones include [OpenRoad](https://github.com/The-OpenROAD-Project),[Openlane](https://github.com/efabless/openlane) and [Qflow](https://github.com/RTimothyEdwards/qflow). 
+
+## PDKs
+Process Design Kit(PDKs) are a collection of files used to model a fabrication process for the EDA tools used to design an IC. The files describe the Process Design Rules(DRC, LVS etc), Device Models (SPICE), Digital Standard Cell Libraries, I/O Libraries etc. This is the third most important enabler for digital ASIC flow. PDKs formed the interface between Pure Play Fabs and Fabless design companies. Since the beginning of the semiconductor industry, PDKs were not openly available.
+The [SkyWater Open Source PDK](https://github.com/google/skywater-pdk) targeting the SKY130 process node is a collaboration between Google and SkyWater Technology Foundry to provide a fully open source Process Design Kit and related resources, which can be used to create manufacturable designs at SkyWater’s facility. 
+
+# Simplified RTL2GDS flow
+
+1. Synthesis :- Converts the RTL description made using any of the HDLs into a circuit or a netlist of components from the standard cell library. Standard cells are building blocks which make up the library. They have a regular layout. Each have different views/models.
+2. Floor and Power Planning :- Objective here is to plan the silicon area and create robust power distribution network for the circuits.Floorplanning can be of two types namely the entire chip floor planning and macro floor planning. Chip floor-planning refers to partitioning the chip die between different system building blocks and placement of the I/O pads. Macro Floor-planning refers to the Dimensions, pin locations and row definitions of a Macro. In power planning, power network are constructed. Typically, a chip is powered by multiple Vdd and gnd pins. The power pins are connected to the circuits by vertical and horizontal power straps. such parallel structures helps reduce resistance and electro-migration problem. Typically, they use the upper metal layers.
+3. Placement :- Refers to the placement of the cells on the floorplan rows aligned with the sites.connected cells are expected to be placed nearby for easier routing in further stages. typical placement happend in two steps. Global and Detailed 
